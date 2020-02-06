@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:paddingStart="16dp"
+    android:paddingEnd="16dp"
+    android:paddingBottom="8dp">
+
+    <TextView
+        android:id="@+id/story_detail_author"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textColor="@android:color/darker_gray"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="ularb0yz" />
+
+    <TextView
+        android:id="@+id/story_detail_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:textColor="@android:color/darker_gray"
+        app:layout_constraintStart_toEndOf="@id/story_detail_author"
+        app:layout_constraintTop_toTopOf="@+id/story_detail_author"
+        tools:text="23 minutes ago" />
+
+    <TextView
+        android:id="@+id/story_detail_comment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:ellipsize="end"
+        android:maxLines="3"
+        app:layout_constraintStart_toStartOf="@+id/story_detail_author"
+        app:layout_constraintTop_toBottomOf="@id/story_detail_author"
+        tools:text="One of my best client experiences was advising a surf resort in Fiji, and of course we had to go stay there in order to understand the business model." />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

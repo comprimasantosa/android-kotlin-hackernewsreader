@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Hacker News Reader</string>
+    <string name="top_stories_text">Top Stories</string>
+    <string name="my_favorite_text">My Favorite</string>
+    <string name="story_detail_text">Story Detail</string>
+    <string name="comments_text">Comments</string>
+    <string name="description_text">Description</string>
+    <string name="no_comments_text">No comments available at the moment</string>
+    <string name="no_description_text">No description available</string>
+    <string name="no_favorite_story_text">Currently no favorite story</string>
+    <string name="no_internet_connection">No internet connection</string>
+</resources>

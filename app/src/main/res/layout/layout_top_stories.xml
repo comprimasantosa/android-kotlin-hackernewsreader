@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingStart="16dp"
+    android:paddingEnd="16dp"
+    android:paddingTop="8dp"
+    android:paddingBottom="8dp"
+    android:clickable="true"
+    android:focusable="true"
+    android:background="?attr/selectableItemBackground">
+
+    <TextView
+        android:id="@+id/top_stories_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Docker implemented in around 100 lines of Bash" />
+
+    <TextView
+        android:id="@+id/top_stories_points"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="@+id/top_stories_title"
+        app:layout_constraintTop_toBottomOf="@+id/top_stories_title"
+        tools:text="196 points" />
+
+    <TextView
+        android:id="@+id/top_stories_author"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:textSize="12sp"
+        app:layout_constraintStart_toEndOf="@+id/top_stories_points"
+        app:layout_constraintTop_toBottomOf="@+id/top_stories_title"
+        tools:text=" | by ularb0yz | " />
+
+    <TextView
+        android:id="@+id/top_stories_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
+        app:layout_constraintStart_toEndOf="@+id/top_stories_author"
+        app:layout_constraintTop_toTopOf="@+id/top_stories_author"
+        tools:text="2 hours ago | " />
+
+    <TextView
+        android:id="@+id/top_stories_comments"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
+        app:layout_constraintStart_toEndOf="@+id/top_stories_time"
+        app:layout_constraintTop_toTopOf="@+id/top_stories_author"
+        tools:text="7 comments" />
+</androidx.constraintlayout.widget.ConstraintLayout>
