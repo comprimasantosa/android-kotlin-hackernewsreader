@@ -1,0 +1,1 @@
+Hacker News Reader is an app to browse through top stories of HackerNews. This app uses Retrofit and Moshi as networking library and its purpose is to simulate HackerNews API call.
