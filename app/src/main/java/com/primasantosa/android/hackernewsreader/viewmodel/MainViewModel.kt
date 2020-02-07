@@ -5,14 +5,17 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.primasantosa.android.hackernewsreader.model.News
 import com.primasantosa.android.hackernewsreader.model.StoryComments
-import com.primasantosa.android.hackernewsreader.network.NewsApi
+import com.primasantosa.android.hackernewsreader.repository.NewsRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 class MainViewModel : ViewModel() {
+
+    // Initialize the repository
+    private val newsRepository = NewsRepository()
+
     // Store list of Stories data
     private val _listStories = MutableLiveData<List<News>>()
     val listStories: LiveData<List<News>>
@@ -48,107 +51,16 @@ class MainViewModel : ViewModel() {
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
     init {
-        // Call getTopStories() when initialize the ViewModel
-        getTopStories()
-    }
-
-    // Calling a function to fetch network data in ViewModel is not ideal. This is temporary until it moved to Repository.
-    private fun getTopStories() {
-        // Declare a mutableList that will hold list of stories
-        val storyList = mutableListOf<News>()
-
-        // Execute API Call in coroutine scope
+        // Call getTopStories
         coroutineScope.launch {
-            // Call the API
-            val storyIdDeferred = NewsApi.retrofitService.getTopStories()
-
-            try {
-                // Set progress bar
-                _progressBar.value = true
-
-                // Get a list of story IDs
-                val storyId = storyIdDeferred.await()
-
-                // Loop through story IDs
-                for (id in storyId) {
-
-                    // Limit to 20 Top Stories for faster data fetching
-                    if (id == storyId[20]) break
-
-                    // Again, call the API
-                    val storyDeferred = NewsApi.retrofitService.getStory(id)
-
-                    // Get story detail
-                    val story = storyDeferred.await()
-
-                    // Add it to list
-                    storyList.add(story)
-                }
-
-                // Set MutableLiveData value
-                _listStories.value = storyList
-
-                // Set progress bar
-                _progressBar.value = false
-
-                // Logging purpose
-//                Timber.i("$storyList")
-            } catch (e: Exception) {
-                Timber.i("$e")
-            }
+            _listStories.value = newsRepository.getTopStories(_progressBar, _listStories)
         }
     }
 
-    // Get a story
+    // Call getStory from repository
     fun getStory() {
-        // Declare a mutableList that will hold list of story comments
-        val storyCommentList = mutableListOf<StoryComments>()
-
         coroutineScope.launch {
-            // Call the API
-            val storyDeferred = NewsApi.retrofitService.getStory(storyId.value!!)
-
-            try {
-                // Set progress bar
-                _progressBar.value = true
-
-                // Get the story data
-                val story = storyDeferred.await()
-
-                // Store the data to _story as MutableLiveData
-                _story.value = story
-
-                // Check if story comment is null
-                if (story.comments != null) {
-
-                    // Loop through story comments
-                    for (comment in story.comments) {
-
-                        // Limit to 10 story comments for faster data fetching
-                        if (story.comments.size > 10 && comment == story.comments[10]) break
-
-                        // Call the API
-                        val commentDeferred = NewsApi.retrofitService.getComment(comment)
-
-                        // Get a story comment
-                        val storyComments = commentDeferred.await()
-
-                        // Add it to a list of story comments
-                        storyCommentList.add(storyComments)
-                    }
-
-                    // Store list to _listStoryComments as LiveData
-                    _listStoryComments.value = storyCommentList
-
-                    // Set progress bar
-                    _progressBar.value = false
-
-                    // Logging purpose
-//                    Timber.i("$commentList")
-                }
-            } catch (e: Exception) {
-                Timber.i("$e")
-            }
+            newsRepository.getStory(_progressBar, _story, storyId, _listStoryComments)
         }
     }
 
